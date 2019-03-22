@@ -25,5 +25,5 @@ var out string
 err := tapao.Marshal(in, &out)
 
 // try using different serializer when failed
-out, err := tapao.Marshal(in, tapao.With(tapao.JSON), tapao.FallbackWith(tapao.MessagePack))
+err := tapao.Marshal(in, &out, tapao.With(tapao.JSON), tapao.FallbackWith(tapao.MessagePack))
 ```
