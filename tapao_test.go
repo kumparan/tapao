@@ -36,16 +36,16 @@ func TestMarshal(t *testing.T) {
 		assert.Equal(t, msgpackOut, out)
 	})
 
-	t.Run("use json", func(t *testing.T) {
-		out, err := Marshal(in, Use(JSON))
+	t.Run("with json", func(t *testing.T) {
+		out, err := Marshal(in, With(JSON))
 		assert.NoError(t, err)
 		assert.Equal(t, jsonOut, out)
 	})
 
-	t.Run("use msgpack", func(t *testing.T) {
-		out, err := Marshal(in, Use(MessagePack))
+	t.Run("with msgpack", func(t *testing.T) {
+		out, err := Marshal(in, With(MessagePack))
 		assert.NoError(t, err)
-		assert.Equal(t, jsonOut, out)
+		assert.Equal(t, msgpackOut, out)
 	})
 
 	// TODO: test fallback, skip for now
@@ -65,43 +65,43 @@ func TestUnmarshal(t *testing.T) {
 		assert.Equal(t, source, out)
 	})
 
-	t.Run("use json", func(t *testing.T) {
+	t.Run("with json", func(t *testing.T) {
 		var out TestStruct
-		err := Unmarshal(jsonIn, &out, Use(JSON))
+		err := Unmarshal(jsonIn, &out, With(JSON))
 		assert.NoError(t, err)
 		assert.Equal(t, source, out)
 	})
 
-	t.Run("use msgpack", func(t *testing.T) {
+	t.Run("with msgpack", func(t *testing.T) {
 		var out TestStruct
-		err := Unmarshal(msgpackIn, &out, Use(MessagePack))
+		err := Unmarshal(msgpackIn, &out, With(MessagePack))
 		assert.NoError(t, err)
 		assert.Equal(t, source, out)
 	})
 
-	t.Run("use json, fallback msgpack", func(t *testing.T) {
+	t.Run("with json, fallback msgpack", func(t *testing.T) {
 		var out TestStruct
-		err := Unmarshal(msgpackIn, &out, Use(JSON), FallbackWith(MessagePack))
+		err := Unmarshal(msgpackIn, &out, With(JSON), FallbackWith(MessagePack))
 		assert.NoError(t, err)
 		assert.Equal(t, source, out)
 	})
 
-	t.Run("use msgpack, fallback json", func(t *testing.T) {
+	t.Run("with msgpack, fallback json", func(t *testing.T) {
 		var out TestStruct
-		err := Unmarshal(jsonIn, &out, Use(MessagePack), FallbackWith(JSON))
+		err := Unmarshal(jsonIn, &out, With(MessagePack), FallbackWith(JSON))
 		assert.NoError(t, err)
 		assert.Equal(t, source, out)
 	})
 
-	t.Run("use msgpack, fallback msgpack, error", func(t *testing.T) {
+	t.Run("with msgpack, fallback msgpack, error", func(t *testing.T) {
 		var out TestStruct
-		err := Unmarshal(jsonIn, &out, Use(MessagePack), FallbackWith(MessagePack))
+		err := Unmarshal(jsonIn, &out, With(MessagePack), FallbackWith(MessagePack))
 		assert.Error(t, err)
 	})
 
-	t.Run("use json, fallback json, error", func(t *testing.T) {
+	t.Run("with json, fallback json, error", func(t *testing.T) {
 		var out TestStruct
-		err := Unmarshal(msgpackIn, &out, Use(JSON), FallbackWith(JSON))
+		err := Unmarshal(msgpackIn, &out, With(JSON), FallbackWith(JSON))
 		assert.Error(t, err)
 	})
 }

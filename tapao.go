@@ -34,8 +34,8 @@ var defaultOptions = Options{
 	fallbackOpts: fallbackOptions{isSet: false},
 }
 
-// Use define type of serializer to use
-func Use(s SerializerType) func(*Options) {
+// With define type of serializer to use
+func With(s SerializerType) func(*Options) {
 	return func(o *Options) {
 		o.serializer = s
 	}
