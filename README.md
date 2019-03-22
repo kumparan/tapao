@@ -22,8 +22,8 @@ Sometimes, you need to be flexible when unmarshalling. With tapao, you could set
 var out string
 
 // default to messagepack
-err := tapao.Marshal(in, &out)
+err := tapao.Unmarshal(in, &out)
 
 // try using different serializer when failed
-err := tapao.Marshal(in, &out, tapao.With(tapao.JSON), tapao.FallbackWith(tapao.MessagePack))
+err := tapao.Unmarshal(in, &out, tapao.With(tapao.JSON), tapao.FallbackWith(tapao.MessagePack))
 ```
