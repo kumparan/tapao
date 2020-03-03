@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 
+	"github.com/golang/protobuf/proto"
 	"github.com/vmihailenco/msgpack"
 )
 
@@ -15,6 +16,8 @@ const (
 	JSON = SerializerType(0)
 	// MessagePack :nodoc:
 	MessagePack = SerializerType(1)
+	// Protobuf :nodoc:
+	Protobuf = SerializerType(2)
 )
 
 type (
@@ -86,6 +89,8 @@ func marshal(in interface{}, serializer SerializerType) (out []byte, err error) 
 		out, err = json.Marshal(in)
 	case MessagePack:
 		out, err = msgpack.Marshal(in)
+	case Protobuf:
+		out, err = proto.Marshal(in.(proto.Message))
 	default:
 		err = errors.New("serializer is not recognized")
 	}
@@ -98,6 +103,8 @@ func unmarshal(in []byte, out interface{}, serializer SerializerType) (err error
 		err = json.Unmarshal(in, out)
 	case MessagePack:
 		err = msgpack.Unmarshal(in, out)
+	case Protobuf:
+		err = proto.Unmarshal(in, out.(proto.Message))
 	default:
 		err = errors.New("serializer is not recognized")
 	}

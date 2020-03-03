@@ -1,6 +1,7 @@
 module github.com/kumparan/tapao
 
 require (
+	github.com/golang/protobuf v1.3.4
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/stretchr/testify v1.3.0
 	github.com/vmihailenco/msgpack v4.0.3+incompatible
