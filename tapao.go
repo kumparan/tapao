@@ -92,7 +92,7 @@ func marshal(in interface{}, serializer SerializerType) (out []byte, err error) 
 	case Protobuf:
 		protoIn, ok := in.(proto.Message)
 		if !ok {
-			return nil, err
+			return nil, errors.New("cannot cast input struct to protobuf")
 		}
 		out, err = proto.Marshal(protoIn)
 	default:
@@ -108,6 +108,10 @@ func unmarshal(in []byte, out interface{}, serializer SerializerType) (err error
 	case MessagePack:
 		err = msgpack.Unmarshal(in, out)
 	case Protobuf:
+		_, ok := out.(proto.Message)
+		if !ok {
+			return errors.New("cannot cast output struct to protobuf")
+		}
 		err = proto.Unmarshal(in, out.(proto.Message))
 	default:
 		err = errors.New("serializer is not recognized")
