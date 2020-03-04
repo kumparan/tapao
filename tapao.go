@@ -108,11 +108,11 @@ func unmarshal(in []byte, out interface{}, serializer SerializerType) (err error
 	case MessagePack:
 		err = msgpack.Unmarshal(in, out)
 	case Protobuf:
-		_, ok := out.(proto.Message)
+		pbOut, ok := out.(proto.Message)
 		if !ok {
 			return errors.New("cannot cast output struct to protobuf")
 		}
-		err = proto.Unmarshal(in, out.(proto.Message))
+		err = proto.Unmarshal(in, pbOut)
 	default:
 		err = errors.New("serializer is not recognized")
 	}
