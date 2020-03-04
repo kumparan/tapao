@@ -90,7 +90,11 @@ func marshal(in interface{}, serializer SerializerType) (out []byte, err error) 
 	case MessagePack:
 		out, err = msgpack.Marshal(in)
 	case Protobuf:
-		out, err = proto.Marshal(in.(proto.Message))
+		protoIn, ok := in.(proto.Message)
+		if !ok {
+			return nil, err
+		}
+		out, err = proto.Marshal(protoIn)
 	default:
 		err = errors.New("serializer is not recognized")
 	}

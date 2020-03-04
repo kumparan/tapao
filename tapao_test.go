@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"testing"
 
+	"github.com/golang/protobuf/proto"
 	"github.com/vmihailenco/msgpack"
 
+	"github.com/kumparan/tapao/pb"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -30,6 +32,10 @@ func TestMarshal(t *testing.T) {
 	jsonOut, err := json.Marshal(in)
 	assert.NoError(t, err)
 
+	pbIn := &pb.Greeting{}
+	pbOut, err := proto.Marshal(pbIn)
+	assert.NoError(t, err)
+
 	t.Run("default", func(t *testing.T) {
 		out, err := Marshal(in)
 		assert.NoError(t, err)
@@ -48,6 +54,12 @@ func TestMarshal(t *testing.T) {
 		assert.Equal(t, msgpackOut, out)
 	})
 
+	t.Run("with protobuf", func(t *testing.T) {
+		out, err := Marshal(pbIn, With(Protobuf))
+		assert.NoError(t, err)
+		assert.Equal(t, out, pbOut)
+	})
+
 	// TODO: test fallback, skip for now
 }
 
@@ -56,6 +68,10 @@ func TestUnmarshal(t *testing.T) {
 	msgpackIn, err := msgpack.Marshal(source)
 	assert.NoError(t, err)
 	jsonIn, err := json.Marshal(source)
+	assert.NoError(t, err)
+
+	pbTest := &pb.Greeting{}
+	pbIn, err := proto.Marshal(pbTest)
 	assert.NoError(t, err)
 
 	t.Run("default", func(t *testing.T) {
@@ -77,6 +93,13 @@ func TestUnmarshal(t *testing.T) {
 		err := Unmarshal(msgpackIn, &out, With(MessagePack))
 		assert.NoError(t, err)
 		assert.Equal(t, source, out)
+	})
+
+	t.Run("with protobuf", func(t *testing.T) {
+		var out pb.Greeting
+		err := Unmarshal(pbIn, &out, With(Protobuf))
+		assert.NoError(t, err)
+		assert.Equal(t, pbTest, &out)
 	})
 
 	t.Run("with json, fallback msgpack", func(t *testing.T) {
