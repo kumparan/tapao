@@ -1,15 +1,18 @@
 module github.com/kumparan/tapao
 
+go 1.17
+
 require (
-	github.com/golang/protobuf v1.3.4
+	github.com/stretchr/testify v1.7.0
+	github.com/vmihailenco/msgpack/v5 v5.3.5
+	google.golang.org/protobuf v1.27.1
+)
+
+require (
+	github.com/davecgh/go-spew v1.1.0 // indirect
 	github.com/kr/pretty v0.1.0 // indirect
-	github.com/stretchr/testify v1.3.0
-	github.com/vmihailenco/msgpack v4.0.3+incompatible
-	golang.org/x/lint v0.0.0-20190313153728-d0100b6bd8b3 // indirect
-	golang.org/x/net v0.0.0-20190311183353-d8887717615a
-	golang.org/x/tools v0.0.0-20190524140312-2c0ae7006135 // indirect
-	google.golang.org/appengine v1.5.0 // indirect
-	google.golang.org/grpc v1.27.1
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
-	honnef.co/go/tools v0.0.0-20190523083050-ea95bdfd59fc // indirect
+	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
 )

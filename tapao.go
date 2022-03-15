@@ -3,9 +3,8 @@ package tapao
 import (
 	"encoding/json"
 	"errors"
-
-	"github.com/golang/protobuf/proto"
-	"github.com/vmihailenco/msgpack"
+	"github.com/vmihailenco/msgpack/v5"
+	"google.golang.org/protobuf/proto"
 )
 
 // SerializerType :nodoc:
@@ -13,11 +12,11 @@ type SerializerType string
 
 const (
 	// JSON :nodoc:
-	JSON = SerializerType(0)
+	JSON = SerializerType("json")
 	// MessagePack :nodoc:
-	MessagePack = SerializerType(1)
+	MessagePack = SerializerType("msgpack")
 	// Protobuf :nodoc:
-	Protobuf = SerializerType(2)
+	Protobuf = SerializerType("protobuf")
 )
 
 type (

@@ -1,0 +1,28 @@
+syntax = "proto3";
+package pb.skeleton;
+option go_package = "pb/skeleton";
+
+message Greeting {
+  int64 id = 1;
+  string name = 2;
+  string created_at = 3;
+  string updated_at = 4;
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+  string greeting = 1;
+}
+
+message FindByIDRequest {
+  int64 id = 1;
+}
+
+service HelloService {
+  rpc SayHello(HelloRequest) returns (HelloResponse) {}
+  rpc FindByID(FindByIDRequest) returns (Greeting) {}
+  rpc Create(Greeting) returns (Greeting) {}
+}

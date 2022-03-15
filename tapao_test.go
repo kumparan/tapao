@@ -2,10 +2,10 @@ package tapao
 
 import (
 	"encoding/json"
+	"github.com/vmihailenco/msgpack/v5"
 	"testing"
 
-	"github.com/golang/protobuf/proto"
-	"github.com/vmihailenco/msgpack"
+	"google.golang.org/protobuf/proto"
 
 	"github.com/kumparan/tapao/pb"
 	"github.com/stretchr/testify/assert"
